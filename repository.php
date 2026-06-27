@@ -39,3 +39,4 @@ function ajouterTransaction($telephone, $type, $montant, $frais) {
         "date"      => date("d/m/Y H:i")
     ];
 }
+?>
