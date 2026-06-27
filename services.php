@@ -47,15 +47,6 @@ function faireDepot($telephone, $montant) {
 }
 
 
-
-
-
-
-
-
-
-
-
 function faireRetrait($telephone, $montant) {
     if (!telephoneExiste($telephone)) {
         return ["succes" => false, "message" => "Téléphone introuvable"];
@@ -81,11 +72,9 @@ function faireRetrait($telephone, $montant) {
 
 function listerTransactions($telephone = null) {
     global $transactions;
-    $resultat = [];
-    for ($i = 0; $i < count($transactions); $i++) {
-        if ($telephone === null || $transactions[$i]["telephone"] === $telephone) {
-            $resultat[] = $transactions[$i];
-        }
-    }
-    return $resultat;
+    $resultat = array_filter(
+        $transactions,
+        fn($t) => $telephone === null || $t["telephone"] === $telephone
+    );
+    return array_values($resultat);
 }

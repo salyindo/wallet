@@ -11,14 +11,9 @@ function telephoneUnique($telephone) {
 
 function codeUnique($code) {
     global $wallets;
-    for ($i = 0; $i < count($wallets); $i++) {
-        if ($wallets[$i]["code"] === $code) {
-            return false;
-        }
-    }
-    return true;
+    $resultat = array_filter($wallets, fn($w) => $w["code"] === $code);
+    return count($resultat) === 0;
 }
-
 function soldeInitialValide($solde) {
     return is_numeric($solde) && $solde >= 0;
 }

@@ -6,12 +6,8 @@ $transactions = [];
 
 function trouverWalletParTelephone($telephone) {
     global $wallets;
-    for ($i = 0; $i < count($wallets); $i++) {
-        if ($wallets[$i]["telephone"] === $telephone) {
-            return $i;
-        }
-    }
-    return -1;
+    $index = array_search($telephone, array_column($wallets, "telephone"));
+    return $index !== false ? $index : -1;
 }
 
 function ajouterWallet($telephone, $nom, $solde, $code) {
