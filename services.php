@@ -45,3 +45,47 @@ function faireDepot($telephone, $montant) {
     ajouterTransaction($telephone, "depot", $montant, 0);
     return ["succes" => true, "message" => "Dépôt effectué. Nouveau solde : $nouveauSolde CFA"];
 }
+
+
+
+
+
+
+
+
+
+
+
+function faireRetrait($telephone, $montant) {
+    if (!telephoneExiste($telephone)) {
+        return ["succes" => false, "message" => "Téléphone introuvable"];
+    }
+    if (!montantPositif($montant)) {
+        return ["succes" => false, "message" => "Montant invalide"];
+    }
+    $frais = calculerFrais($montant);
+    $total = $montant + $frais;
+    global $wallets;
+    $index = trouverWalletParTelephone($telephone);
+    if ($wallets[$index]["solde"] < $total) {
+        return ["succes" => false, "message" => "Solde insuffisant. Besoin : $total CFA dont $frais CFA de frais"];
+    }
+    $nouveauSolde = $wallets[$index]["solde"] - $total;
+    mettreAJourSolde($index, $nouveauSolde);
+    ajouterTransaction($telephone, "retrait", $montant, $frais);
+    return ["succes" => true, "message" => "Retrait effectué. Frais : $frais CFA. Solde restant : $nouveauSolde CFA"];
+}
+
+
+
+
+function listerTransactions($telephone = null) {
+    global $transactions;
+    $resultat = [];
+    for ($i = 0; $i < count($transactions); $i++) {
+        if ($telephone === null || $transactions[$i]["telephone"] === $telephone) {
+            $resultat[] = $transactions[$i];
+        }
+    }
+    return $resultat;
+}
