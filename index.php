@@ -1,18 +1,20 @@
 <?php
 
+
+
 require "repository.php";
 require "validator.php";
 require "services.php";
 require "controller.php";
 
 do {
-   
-echo "    Menu wallet\n";
-echo "1 - Créer Wallet\n";
-echo "2 - Faire Dépôt\n";
-echo "3 - Faire Retrait\n";
-echo "4 - Lister les Transactions\n";
-echo "0 - Quitter\n";
+    echo "** Menu Distributeur **\n";
+    echo "1 - Créer Wallet\n";
+    echo "2 - Faire Dépôt\n";
+    echo "3 - Faire Retrait\n";
+    echo "4 - Lister les Transactions\n";
+    echo "0 - Quitter\n";
+    echo "Votre choix : ";
 
     $choix = (int) trim(fgets(STDIN));
 
@@ -25,6 +27,4 @@ echo "0 - Quitter\n";
 } while ($choix !== 0);
 
 echo "Au revoir !\n";
-
-
 ?>
